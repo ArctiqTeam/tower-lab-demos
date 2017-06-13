@@ -1,0 +1,64 @@
+yum install openldap-clients
+
+ldapsearch -x  -H ldap://<YOUR WINDOWS DC>.cloud.lab:389 -D "CN=Administrator,CN=Users,DC=cloud,DC=lab" -b "dc=cloud,dc=lab" -W objectClass=group -E pr=2147483647/noprompt
+
+ldap://win-7mu3hf738ha.cloud.lab:389
+
+USER SEARCH
+[
+  "DC=cloud,DC=lab",
+  "SCOPE_SUBTREE",
+  "(sAMAccountName=%(user)s)"
+]
+
+GROUP SEARCH
+[
+  "DC=cloud,DC=lab",
+  "SCOPE_SUBTREE",
+  "(objectClass=group)"
+]
+
+USER ATTRIBUTE MAP
+{
+ "first_name": "givenName",
+ "last_name": "sn",
+ "email": "mail"
+}
+
+ORG MAP
+{
+ "Dept1": {
+  "users": [
+   “Dept1_Users,OU=Users,DC=cloud,DC=lab”
+  ],
+  "remove_users": true,
+  "admins": [
+   “Dept1_Admins,OU=Users,DC=cloud,DC=lab”
+  ],
+  "remove_admins": true
+ },
+ "Dept2": {
+  "users": [
+   “Dept2_Users,OU=Users,DC=cloud,DC=lab”
+  ],
+  "remove_users": true,
+  "admins": [
+   “Dept2_Admins,OU=Users,DC=cloud,DC=lab”
+  ],
+  "remove_admins": true
+ }
+}
+
+TEAM MAP 
+{
+ "Dept1 Users": {
+  “organization”: “Dept1”,
+  “users”: “Dept1_Users,OU=Users,DC=cloud,DC=lab”,
+  "remove": true
+  },
+ "Dept2 Users": {
+  “organization”: “Dept2”,
+  “users”: “Dept2_Users,OU=Users,DC=cloud,DC=lab”,
+  "remove": true
+  }
+}
