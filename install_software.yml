@@ -1,5 +1,6 @@
 ---
   - name: Install Software
+    hosts: linux_lab
     become: yes
     tasks:
       - name: Install LDAP Client
