@@ -1,8 +1,8 @@
 yum install openldap-clients
 
-ldapsearch -x  -H ldap://win-k5lg7hh9tfl.cloud.lab:389 -D "CN=Administrator,CN=Users,DC=cloud,DC=lab" -b "dc=cloud,dc=lab" -W objectClass=group -E pr=2147483647/noprompt
+ldapsearch -x  -H ldap://<AD Server>.cloud.lab:389 -D "CN=Administrator,CN=Users,DC=cloud,DC=lab" -b "dc=cloud,dc=lab" -W objectClass=group -E pr=2147483647/noprompt
 
-ldap://win-7mu3hf738ha.cloud.lab:389
+ldap://<AD Server>.cloud.lab:389
 
 USER SEARCH
 [
