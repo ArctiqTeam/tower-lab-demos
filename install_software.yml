@@ -1,6 +1,5 @@
 ---
   - name: Install Software
-    hosts: localhost
     become: yes
     tasks:
       - name: Install LDAP Client
