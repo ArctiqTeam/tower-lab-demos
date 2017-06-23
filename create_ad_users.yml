@@ -20,7 +20,6 @@
           - 'net group Dept1_Admins /add /domain'
           - 'net group Dept2_Admins /add /domain'
           - 'net group Tower_Users /add /domain'
-
       - name: Add Users to Groups
         win_command: "{{ item }}"
         ignore_errors: yes
