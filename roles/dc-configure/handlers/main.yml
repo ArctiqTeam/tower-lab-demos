@@ -1,0 +1,4 @@
+---
+# handlers file for dc-configure
+- name: Reboot Windows
+  win_reboot:

@@ -1,0 +1,9 @@
+- name: Domain Controller Setup
+  hosts: windows
+  roles:
+    - "dc-configure"
+  post_tasks:
+    - name: Wait for the DC to come back online
+      wait_for_connection:
+        timeout: 600
+        

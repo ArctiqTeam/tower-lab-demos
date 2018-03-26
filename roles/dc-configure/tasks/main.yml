@@ -1,0 +1,16 @@
+---
+# tasks file for dc-configure
+
+- name: Add Domain
+  win_domain:
+    dns_domain_name: "{{ domain_name }}"
+    safe_mode_password: "{{ admin_password }}"
+  notify: Reboot Windows
+- name: Add Domain Controller
+  win_domain_controller:
+    dns_domain_name: "{{ domain_name }}"
+    domain_admin_user: "Administrator@{{ domain_name }}"
+    domain_admin_password: "{{ admin_password }}"
+    safe_mode_password: "{{ admin_password }}"
+    state: domain_controller
+  notify: Reboot Windows
