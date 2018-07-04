@@ -3,3 +3,7 @@
   hosts: all
   tasks:
     - debug: var=all
+    - name: template the thing
+      template:
+        src: templates/test
+        dest: blah
