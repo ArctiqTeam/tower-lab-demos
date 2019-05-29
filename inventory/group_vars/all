@@ -1,0 +1,36 @@
+domain_name: cloud.lab
+windows_groups:
+  - "Dept1_Users"
+  - "Dept2_Users"
+  - "Dept1_Admins"
+  - "Dept2_Admins"
+  - "Tower_Users"
+windows_users:
+  - name: dept1user
+    firstname: dept1
+    surname: user
+    email: "dept1user@{{ domain_name }}"
+    groups:
+      - "Dept1_Users"
+      - "Tower_Users"
+  - name: dept2user
+    firstname: dept2
+    surname: user
+    email: "dept2user@{{ domain_name }}"
+    groups:
+      - "Dept2_Users"
+      - "Tower_Users"
+  - name: dept1admin
+    firstname: dept1
+    surname: admin
+    email: "dept1admin@{{ domain_name }}"
+    groups:
+      - "Dept1_Admins"
+      - "Tower_Users"
+  - name: dept2admin
+    firstname: dept2
+    surname: admin
+    email: "dept2admin@{{ domain_name }}"
+    groups:
+      - "Dept2_Admins"
+      - "Tower_Users"

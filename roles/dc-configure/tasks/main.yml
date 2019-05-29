@@ -4,13 +4,21 @@
 - name: Add Domain
   win_domain:
     dns_domain_name: "{{ domain_name }}"
-    safe_mode_password: "{{ admin_password }}"
-  notify: Reboot Windows
+    safe_mode_password: "{{ safe_mode_password }}"
+  ignore_errors: yes
+
+- name: Reboot Windows
+  win_reboot:
+- name: Wait for the DC to come back online
+  wait_for_connection:
+    timeout: 600
+
 - name: Add Domain Controller
   win_domain_controller:
     dns_domain_name: "{{ domain_name }}"
     domain_admin_user: "Administrator@{{ domain_name }}"
-    domain_admin_password: "{{ admin_password }}"
-    safe_mode_password: "{{ admin_password }}"
+    domain_admin_password: "{{ safe_mode_password }}"
+    safe_mode_password: "{{ safe_mode_password }}"
     state: domain_controller
-  notify: Reboot Windows
+- name: Reboot Windows
+  win_reboot:

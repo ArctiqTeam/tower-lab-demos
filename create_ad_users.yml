@@ -1,34 +1,23 @@
 ---
+#I'm making a change in a way that I hate...
   - name: Create the Lab Domain Environment
     hosts: windows
     tasks:
-      - name: Add the Users
-        win_command: "{{ item }}"
-        ignore_errors: yes
+      - name: Add Groups
+        win_domain_group:
+          name: "{{ item }}"
+          scope: global
         with_items:
-          - 'dsadd user "cn=dept1user,cn=Users,dc=cloud,dc=lab" -fn dept1 -ln user -samid dept1user -email dept1user@cloud.lab -pwd Arct1q1234# -mustchpwd no -disabled no'
-          - 'dsadd user "cn=dept2user,cn=Users,dc=cloud,dc=lab" -fn dept2 -ln user -samid dept2user -email dept2user@cloud.lab -pwd Arct1q1234# -mustchpwd no -disabled no'
-          - 'dsadd user "cn=dept1admin,cn=Users,dc=cloud,dc=lab" -fn dept1 -ln admin -samid dept1admin -email dept1admin@cloud.lab -pwd Arct1q1234# -mustchpwd no -disabled no'
-          - 'dsadd user "cn=dept2admin,cn=Users,dc=cloud,dc=lab" -fn dept2 -ln admin -samid dept2admin -email dept2admin@cloud.lab -pwd Arct1q1234# -mustchpwd no -disabled no'
-          - 'dsadd user "cn=test1,cn=Users,dc=cloud,dc=lab" -fn test1 -ln user -samid test1 -email test1@cloud.lab -pwd Arct1q1234# -mustchpwd no -disabled no'
-      - name: Add the Groups
-        win_command: "{{ item }}"
-        ignore_errors: yes
+          - "{{ windows_groups }}"
+      - name: Add Users
+        win_domain_user:
+          name: "{{ item.name }}"
+          firstname: "{{ item.firstname }}"
+          surname: "{{ item.surname }}"
+          password: "{{ user_password }}"
+          update_password: always
+          email: "{{ item.email }}"
+          state: present
+          groups: "{{ item.groups }}"
         with_items:
-          - 'net group Dept1_Users /add /domain'
-          - 'net group Dept2_Users /add /domain'
-          - 'net group Dept1_Admins /add /domain'
-          - 'net group Dept2_Admins /add /domain'
-          - 'net group Tower_Users /add /domain'
-      - name: Add Users to Groups
-        win_command: "{{ item }}"
-        ignore_errors: yes
-        with_items:
-          - 'net group Dept1_Users dept1user /add /domain'
-          - 'net group Dept2_Users dept2user /add /domain'
-          - 'net group Dept1_Admins dept1admin /add /domain'
-          - 'net group Dept2_Admins dept2admin /add /domain'
-          - 'net group Tower_Users dept1user /add /domain'
-          - 'net group Tower_Users dept2user /add /domain'
-          - 'net group Tower_Users dept1admin /add /domain'
-          - 'net group Tower_Users dept2admin /add /domain'
+          - "{{ windows_users }}"

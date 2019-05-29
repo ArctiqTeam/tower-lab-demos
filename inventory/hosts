@@ -1,0 +1,12 @@
+[linux_lab]
+git-timfairweather-node1
+git-timfairweather-node2
+
+[tower]
+git-timfairweather-tower
+
+[ghe_lab]
+git-timfairweather-ghe
+
+[windows_lab]
+windows
