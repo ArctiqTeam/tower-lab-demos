@@ -1,12 +1,26 @@
 [linux_lab]
-git-timfairweather-node1
-git-timfairweather-node2
+node1 ansible_host=<node1_ip>
+node2 ansible_host=<node2_ip>
+
+[linux_lab:vars]
+ansible_port=22
 
 [tower]
-git-timfairweather-tower
+tower ansible_host=<tower_ip>
 
-[ghe_lab]
-git-timfairweather-ghe
+[tower:vars]
+ansible_port=22
 
-[windows_lab]
-windows
+[gitlab_lab]
+gitlab ansible_host=<gitlab_ip>
+
+[gitlab_lab:vars]
+ansible_port=22
+
+[windows]
+windows ansible_host=<windows_ip>
+
+[windows:vars]
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
